@@ -8,7 +8,7 @@
 
 api_version: 1.0
 
-joint_limit_buffers: [.01, .01, .01, .01, .01, .01]
+joint_limit_buffers: [.01, .01, .01, .01, .01, .01, .01, .01, .01, .01, .01, .01]
 
 rmp_params:
     cspace_target_rmp:
@@ -85,16 +85,8 @@ body_cylinders:
       radius: .15
 
 body_collision_controllers:
-  - name: t42_base_link
-    radius: .06
-  - name: wrist_2_link
-    radius: .04
-  - name: wrist_3_link
-    radius: .04
-  - name: tool0
-    radius: .04
-  - name: gripper_ee
-    radius: .01
+     - name: tool0
+       radius: .05
 
     
 

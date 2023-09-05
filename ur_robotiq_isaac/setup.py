@@ -22,6 +22,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            "joint_controller = ur_robotiq_isaac.joint_controller:main"
+
         ],
     },
 )
