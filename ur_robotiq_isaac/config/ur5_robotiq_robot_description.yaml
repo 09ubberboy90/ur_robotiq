@@ -15,16 +15,23 @@ api_version: 1.0
 # to have an entry in the URDF, except when otherwise specified below under
 # cspace_urdf_bridge.
 cspace:
-  - shoulder_pan_joint
+  - elbow_joint 
   - shoulder_lift_joint
-  - elbow_joint
+  - shoulder_pan_joint
   - wrist_1_joint
   - wrist_2_joint
   - wrist_3_joint
+  - right_inner_knuckle_joint
+  - right_outer_knuckle_joint
+  - right_inner_finger_joint
+  - left_inner_knuckle_joint
+  - finger_joint
+  - left_inner_finger_joint
+
 
 root_link: world
 
-default_q: [-1.57, -1.57, -1.57, -1.57, 1.57, 2.35]
+default_q: [0.0, -1.57, 0.0, -1.57, 0.0, 0.0, .0, .0, .0, .0, .0, .0]
 
 # Most dimensions of the cspace have a direct corresponding element
 # in the URDF. This list of rules defines how unspecified coordinates
@@ -102,19 +109,22 @@ collision_spheres:
   - wrist_3_link:
       - "center": [0.0, 0.002, -0.025]
         "radius": 0.035
-  -  finger_1_1:
-      - center: [0.0, 0.0, -0.031]
-        radius: 0.03
-  -  finger_1_2:
-      - center: [0.0, 0.0, -0.035]
-        radius: 0.02
-  -  finger_2_1:
-      - center: [0.0, 0.0, -0.031]
-        radius: 0.03
-  -  finger_2_2:
-      - center: [0.0, 0.0, -0.035]
-        radius: 0.02
-  -  gripper_ee:
-      - center: [0.0, 0.0, 0.0]
-        radius: 0.01
+  - right_inner_knuckle_joint:
+      - "center": [0,0,0]
+        "radius": 0.01
+  - right_outer_knuckle_joint:
+      - "center": [0,0,0]
+        "radius": 0.01
+  - right_inner_finger_joint:
+      - "center": [0,0,0]
+        "radius": 0.01
+  - left_inner_knuckle_joint:
+      - "center": [0,0,0]
+        "radius": 0.01
+  - finger_joint:
+      - "center": [0,0,0]
+        "radius": 0.01
+  - left_outer_finger_joint:
+      - "center": [0,0,0]
+        "radius": 0.01
 

@@ -1,7 +1,15 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(robotiq_2f_140_gripper_visualization)
-find_package(catkin REQUIRED)
-catkin_package()
 
-install(DIRECTORY meshes DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
-install(DIRECTORY urdf DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# find dependencies
+find_package(ament_cmake REQUIRED)
+install(
+  DIRECTORY launch urdf meshes
+  DESTINATION share/${PROJECT_NAME}
+)
+
+ament_package()
