@@ -125,6 +125,14 @@
       <child link="$(arg robotiq_prefix)robotiq_arg2f_base_link" />
     </joint>
 
+    <link name="gripper_ee"/>
+
+    <joint name="gripper_ee_joint" type="fixed">
+      <origin xyz="0 0 0.2" rpy="0 0 0" />
+      <parent link="$(arg robotiq_prefix)robotiq_arg2f_base_link" />
+      <child link="gripper_ee" />
+    </joint>
+
     <xacro:include filename="$(find robotiq_2f_140_gripper_visualization)/urdf/robotiq_arg2f_140_model_macro.xacro" />
     <xacro:robotiq_arg2f_140 prefix=""/>
   </xacro:if>
@@ -134,6 +142,14 @@
       <origin xyz="0 0 0.0" rpy="0 0 1.57"/>
       <parent link="$(arg prefix)tool0" />
       <child link="$(arg robotiq_prefix)robotiq_arg2f_base_link" />
+    </joint>
+
+    <link name="gripper_ee"></link>
+
+    <joint name="gripper_ee_joint" type="fixed">
+      <origin xyz="0 0 0.2" rpy="0 0 0" />
+      <parent link="$(arg robotiq_prefix)robotiq_arg2f_base_link" />
+      <child link="$(arg robotiq_prefix)tool_to_gripper" />
     </joint>
 
     <xacro:include filename="$(find robotiq_2f_85_gripper_visualization)/urdf/robotiq_arg2f_85_model_macro.xacro" />

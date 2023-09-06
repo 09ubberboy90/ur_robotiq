@@ -546,6 +546,12 @@
     <parent link="tool0"/>
     <child link="robotiq_arg2f_base_link"/>
   </joint>
+  <link name="gripper_ee"/>
+  <joint name="gripper_ee_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    <parent link="robotiq_arg2f_base_link"/>
+    <child link="gripper_ee"/>
+  </joint>
   <link name="robotiq_arg2f_base_link">
     <inertial>
       <origin rpy="0 0 0" xyz="8.625E-08 -4.6583E-06 0.03145"/>
