@@ -548,7 +548,7 @@
   </joint>
   <link name="gripper_ee"/>
   <joint name="gripper_ee_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 0.2"/>
+    <origin rpy="0 0 0" xyz="0 0 0.235"/>
     <parent link="robotiq_arg2f_base_link"/>
     <child link="gripper_ee"/>
   </joint>
