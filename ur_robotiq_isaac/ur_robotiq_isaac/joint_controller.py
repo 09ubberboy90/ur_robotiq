@@ -14,13 +14,13 @@ class JointController(Node):
     def __init__(self):
         super().__init__('ur_joint_controller')
         self.publisher = self.create_publisher(Float64MultiArray, '/forward_position_controller/commands', 10)
-        # self.motor_pub = self.create_publisher(JointState, 't42_motor_control', 10)
-        self.HOST="163.220.51.116" #my ur ip 
+        self.motor_pub = self.create_publisher(JointState, 'gripper_states', 10)
+        self.HOST="163.220.51.114" #my ur ip 
         self.port=63352 #PORT used by robotiq gripper
 
         self.subscription = self.create_subscription(
             JointState,
-            'joint_states_sim',
+            'joint_states_sim_right',
             self.listener_callback,
             10)
         
@@ -36,9 +36,20 @@ class JointController(Node):
             "wrist_2_joint",
             "wrist_3_joint",
         ]
+
+        self.gripper_joints = [
+            "finger_joint",
+            "left_inner_knuckle_joint",
+            "right_inner_knuckle_joint",
+            "right_outer_knuckle_joint",
+            "left_inner_finger_joint",
+            "right_inner_finger_joint",
+        ]
+
         self.opened_value = 0.0
         self.closed_value = 255.0
         self.last_trigger = False
+        self.current_value = 0
 
     def listener_callback(self, msg:JointState):
         for name, pose in zip(msg.name, msg.position):
@@ -60,9 +71,25 @@ class JointController(Node):
         elif not trigger and self.last_trigger:
             self.send_gripper_command(self.opened_value)
 
+        self.create_gripper_states(self.get_gripper_command())
+
         self.last_trigger = trigger
 
         self.publisher.publish(out_msg)
+
+    def create_gripper_states(self,value):
+        pos = []
+        for name in self.gripper_joints:
+            if name in ["left_inner_knuckle_joint", "right_inner_knuckle_joint","right_outer_knuckle_joint"]:
+                pos.append(-value)
+            else:
+                pos.append(value)
+
+        new = JointState()
+        new.name = self.gripper_joints
+        new.position = pos
+        self.motor_pub.publish(new)
+
 
     def send_gripper_command(self, value):
         print(f"Sending gripper command: {value}")
@@ -72,6 +99,14 @@ class JointController(Node):
             s.sendall(f"SET POS {int(value)}\n".encode())
             s.sendall(b"SET GTO 1\n")
             
+    def get_gripper_command(self):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            #open the socket
+            s.connect((self.HOST, self.port))
+            s.sendall(b'GET POS\n')
+            data = s.recv(2**10)
+            val = data.decode().split(" ")[-1].strip()
+            return np.interp(int(val),[self.opened_value,self.closed_value],[0.0,.87])
 
 def main(args=None):
     rclpy.init(args=args)
