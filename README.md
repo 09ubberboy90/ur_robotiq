@@ -6,8 +6,12 @@ The robot in question is the UR5 with a robotiq gripper.
 
 This package also publishes a recalculated joint state for the gripper based on the reported opening distance.
 
+## Requirement
+
+- ROS2 (tested on galactic)
+
 ## Installation
-Clone this repository and build it into your ros workspace
+Clone this repository and build it into your ros workspace using `colcon build`. Make sure to source the workspace before using.
 
 ## License
 This software is released under MIT liscence.
