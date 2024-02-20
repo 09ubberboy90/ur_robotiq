@@ -6,6 +6,9 @@ The robot in question is the UR5 with a robotiq gripper.
 
 This package also publishes a recalculated joint state for the gripper based on the reported opening distance.
 
+## Installation
+Clone this repository and build it into your ros workspace
+
 ## License
 This software is released under MIT liscence.
 
