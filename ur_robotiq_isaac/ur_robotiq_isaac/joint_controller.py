@@ -21,12 +21,12 @@ class JointController(Node):
         super().__init__('ur_joint_controller')
         self.publisher = self.create_publisher(Float64MultiArray, '/forward_position_controller/commands', 10)
         self.motor_pub = self.create_publisher(JointState, 'gripper_states', 10)
-        self.HOST="163.220.51.114" #my ur ip 
+        self.HOST="192.168.1.1" #my ur ip 
         self.port=63352 #PORT used by robotiq gripper
 
         self.subscription = self.create_subscription(
             JointState,
-            'joint_states_sim_right',
+            'joint_states_sim',
             self.listener_callback,
             10)
         
